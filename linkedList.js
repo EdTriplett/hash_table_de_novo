@@ -16,6 +16,7 @@ class LinkedList {
   addFirstNode(data) {
     this.headNode = new Node(data, null);
     this.tailNode = this.headNode;
+    console.log("data: ", data);
   }
 
   // Add a node to the end of the list
@@ -160,16 +161,16 @@ class LinkedList {
 // |<-[h]<-[]<-[t]
 // |-[t]<-[]<-[h]
 
-const linkedList = new LinkedList();
+// const linkedList = new LinkedList();
+//
+// linkedList.addNode({
+//   word: "cat",
+//   definition: "a furry creature that bites people"
+// });
+// linkedList.addNode({ word: "dog", definition: "wipes out native wild life" });
+// linkedList.addNode({ word: "snake", definition: "awesome safe pets fur kids" });
+// linkedList.printList();
+// linkedList.reverse();
+// linkedList.printList();
 
-linkedList.addNode({
-  word: "cat",
-  definition: "a furry creature that bites people"
-});
-linkedList.addNode({ word: "dog", definition: "wipes out native wild life" });
-linkedList.addNode({ word: "snake", definition: "awesome safe pets fur kids" });
-linkedList.printList();
-linkedList.reverse();
-linkedList.printList();
-
-module.exports = {Node, LinkedList}
+module.exports = { Node, LinkedList };

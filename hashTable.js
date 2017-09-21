@@ -1,5 +1,5 @@
-const { LinkedList, Node } =require("./linkedList.js") ;
-const json = require('./dictionary.json')
+const { LinkedList, Node } = require("./linkedList.js");
+const json = require("./dictionary.json");
 
 class HashTable {
   constructor(size) {
@@ -7,9 +7,9 @@ class HashTable {
   }
 
   hash(word) {
-    // parseInt(word, 36) % this.buckets.size; 
+    // parseInt(word, 36) % this.buckets.size;
     //this implementation assume 26 buckets
-    parseInt(word[0], 36) - 10;
+    return parseInt(word[0], 36) - 10;
   }
 
   insert(data) {
@@ -34,14 +34,16 @@ class HashTable {
   }
 }
 
-let dictionary = new HashTable (26)
-Object.keys(json).forEach(key=>{
+let dictionary = new HashTable(26);
+Object.keys(json).forEach(key => {
   let word = key;
   let definition = json[key];
-  dictionary.insert({word, definition})
-})
+  dictionary.insert({ word, definition });
+});
 
-console.log(dictionary.define('war'))
-console.log(dictionary.define('truth'))
-console.log(dictionary.define('beauty'))
+// console.log(dictionary.define("war"));
+// console.log(dictionary.define("truth"));
+// console.log(dictionary.define("beauty"));
 
+dictionary.renderList();
+// dictionary.renderList();
