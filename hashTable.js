@@ -4,13 +4,26 @@ const json = require("./dictionary.json");
 class HashTable {
   constructor(size) {
     this.buckets = new Array(size).fill(null);
+    this.balanceHigh = 50;
+    this.balanceLow = 5;
+    this.balanceCurr = 0;
   }
 
   hash(word) {
-    // parseInt(word, 36) % this.buckets.size;
-    //this implementation assume 26 buckets
-    return parseInt(word[0], 36) - 10;
+    return parseInt(word, 36) % this.buckets.length;
   }
+
+  calcBalance() {
+    let count = 0;
+    this.buckets.forEach(linkedlist => {
+      count += linkedlist.length ? linkedlist.length : 0;
+    });
+    this.balanceCurr = count / this.buckets.length;
+  }
+
+  balance() {}
+
+  updateBucket() {}
 
   insert(data) {
     let index = this.hash(data.word);
@@ -46,4 +59,6 @@ Object.keys(json).forEach(key => {
 // console.log(dictionary.define("beauty"));
 
 dictionary.renderList();
+dictionary.calcBalance();
+console.log("balance: ", dictionary.balanceCurr);
 // dictionary.renderList();
