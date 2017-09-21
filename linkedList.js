@@ -1,8 +1,7 @@
 class Node {
   constructor(data, next) {
-    // this.word = data.word;
-    // this.definition = data.definition
-    this.data = data
+    this.word = data.word;
+    this.definition = data.definition;
     this.next = next;
   }
 }
@@ -12,7 +11,6 @@ class LinkedList {
     this.headNode = headNode;
     this.tailNode = headNode;
   }
-
 
   addFirstNode(data) {
     this.headNode = new Node(data, null);
@@ -31,28 +29,28 @@ class LinkedList {
   }
 
   removeNode(index) {
-    // Start at the head
-    if (!this.headNode) {
-      console.log('No headNode')
-      return
-      } 
+    // Case 1: HEAD IS NULL
+    if (!this.headNode) return;
+
     let counter = 0;
     let currentNode = this.headNode;
     let prevNode = null;
-    if (index===0) {
-      this.headNode = this.headNode.next
-      currentNode.next=null
+
+    // Case 2: HEAD IS NOT NULL, BUT DELETING FIRST NODE
+    if (!index) {
+      this.headNode = this.headNode.next;
+      // Case 2B: ONLY 1 NODE IN LINKED LIST
+      if (!this.headNode) this.tailNode = this.headNode;
+      currentNode.next = null;
       return;
     }
+
     // Crawl until we hit index
     while (counter < index && currentNode) {
       prevNode = currentNode;
       currentNode = currentNode.next;
       ++counter;
     }
-    console.log('Prev: ',prevNode.data, prevNode.next)
-
-    console.log('Current: ',currentNode.data, currentNode.next)
     if (!currentNode) return;
 
     // Now remove the node
@@ -81,38 +79,48 @@ class LinkedList {
     return currentNode;
   }
 
+  printNode(node) {
+    process.stdout.write(`[${node.word}: ${node.definition}]`);
+  }
+
+  readNode(index) {
+    this.printNode(this.findNode(index));
+    console.log();
+  }
+
   // Crawls and prints the list
   printList() {
     // Start at the head
     let currentNode = this.headNode;
 
     while (currentNode) {
-      process.stdout.write(`[${currentNode.data}]`);
+      this.printNode(currentNode);
       if (currentNode.next) {
-        process.stdout.write('=>');
+        process.stdout.write(" => ");
       }
       currentNode = currentNode.next;
     }
-    process.stdout.write('\n')
+    process.stdout.write("\n");
   }
 }
 
 const linkedList = new LinkedList();
 
-linkedList.addNode(52);
-linkedList.addNode(53);
-linkedList.addNode(54);
-linkedList.printList()
-linkedList.removeNode(0);
-linkedList.printList()
-linkedList.removeNode(0);
-linkedList.printList()
-linkedList.removeNode(0);
-linkedList.printList()
-// console.log('Head: ', this.headNode.data, 'Tail: ', this.tailNode.data)
-linkedList.addNode(54);
-linkedList.printList()
+linkedList.addNode({
+  word: "cat",
+  definition: "a furry creature that bites people"
+});
+linkedList.addNode({ word: "dog", definition: "wipes out native wild life" });
+linkedList.addNode({ word: "snake", definition: "awesome safe pets fur kids" });
 
+linkedList.removeNode(0);
+// linkedList.removeNode(0);
+// linkedList.removeNode(0);
+
+linkedList.printList();
+linkedList.readNode(0);
+
+// linkedList.addNode(5);
 
 // const createLLFromArr = (arr)=>{
 //   let linkedList = new LinkedList(arr[0])
