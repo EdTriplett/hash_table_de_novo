@@ -16,7 +16,6 @@ class LinkedList {
   addFirstNode(data) {
     this.headNode = new Node(data, null);
     this.tailNode = this.headNode;
-    console.log("data: ", data);
   }
 
   // Add a node to the end of the list
