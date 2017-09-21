@@ -1,6 +1,8 @@
 class Node {
   constructor(data, next) {
-    this.data = data;
+    // this.word = data.word;
+    // this.definition = data.definition
+    this.data = data
     this.next = next;
   }
 }
@@ -9,13 +11,8 @@ class LinkedList {
   constructor(headNode = null) {
     this.headNode = headNode;
     this.tailNode = headNode;
-    // this.initialize(headNode);
   }
 
-  // initialize(headNode = null) {
-  //   this.headNode = headNode;
-  //   this.tailNode = headNode;
-  // }
 
   addFirstNode(data) {
     this.headNode = new Node(data, null);
@@ -24,32 +21,39 @@ class LinkedList {
 
   // Add a node to the end of the list
   addNode(data) {
-    // If we don't have a tailNode yet, that means the list is empty
-    // We can treat this case as a `addFirstNode` method
     if (!this.tailNode) {
       this.addFirstNode(data);
     } else {
       const node = new Node(data, null);
-      // Set our new node as the official last node
       this.tailNode.next = node;
       this.tailNode = node;
     }
   }
 
-  // Remove the node at this position (assume there is one there)
-  // We'll crawl the list and save the prev
   removeNode(index) {
     // Start at the head
+    if (!this.headNode) {
+      console.log('No headNode')
+      return
+      } 
     let counter = 0;
     let currentNode = this.headNode;
     let prevNode = null;
-
+    if (index===0) {
+      this.headNode = this.headNode.next
+      currentNode.next=null
+      return;
+    }
     // Crawl until we hit index
     while (counter < index && currentNode) {
       prevNode = currentNode;
       currentNode = currentNode.next;
       ++counter;
     }
+    console.log('Prev: ',prevNode.data, prevNode.next)
+
+    console.log('Current: ',currentNode.data, currentNode.next)
+    if (!currentNode) return;
 
     // Now remove the node
     let nextNode = currentNode.next;
@@ -83,13 +87,36 @@ class LinkedList {
     let currentNode = this.headNode;
 
     while (currentNode) {
-      console.log(currentNode.data);
+      process.stdout.write(`[${currentNode.data}]`);
+      if (currentNode.next) {
+        process.stdout.write('=>');
+      }
       currentNode = currentNode.next;
     }
+    process.stdout.write('\n')
   }
 }
 
 const linkedList = new LinkedList();
-linkedList.printList();
+
 linkedList.addNode(52);
-linkedList.printList();
+linkedList.addNode(53);
+linkedList.addNode(54);
+linkedList.printList()
+linkedList.removeNode(0);
+linkedList.printList()
+linkedList.removeNode(0);
+linkedList.printList()
+linkedList.removeNode(0);
+linkedList.printList()
+// console.log('Head: ', this.headNode.data, 'Tail: ', this.tailNode.data)
+linkedList.addNode(54);
+linkedList.printList()
+
+
+// const createLLFromArr = (arr)=>{
+//   let linkedList = new LinkedList(arr[0])
+//   for (let i=1; i<arr.length; i++){
+
+//   }
+// }
