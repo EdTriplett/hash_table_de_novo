@@ -1,4 +1,4 @@
-export class Node {
+class Node {
   constructor(data, next) {
     this.word = data.word;
     this.definition = data.definition;
@@ -6,7 +6,7 @@ export class Node {
   }
 }
 
-export class LinkedList {
+class LinkedList {
   constructor(headNode = null) {
     this.headNode = headNode;
     this.tailNode = headNode;
@@ -90,8 +90,8 @@ export class LinkedList {
 
     // DON'T MAKE CIRCULAR LINKED LISTS!!!
     while (true) {
-      if (currentNode.word === word) return { count, node: currentNode };
       if (!currentNode) return { count, node: null };
+      if (currentNode.word === word) return { count, node: currentNode };
       currentNode = currentNode.next;
       count++;
     }
@@ -171,3 +171,5 @@ linkedList.addNode({ word: "snake", definition: "awesome safe pets fur kids" });
 linkedList.printList();
 linkedList.reverse();
 linkedList.printList();
+
+module.exports = {Node, LinkedList}
