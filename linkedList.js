@@ -6,19 +6,20 @@ class Node {
 }
 
 class LinkedList {
-  constructor(headNode=null) {  
-    this.initialize(headNode)  
+  constructor(headNode = null) {
+    this.headNode = headNode;
+    this.tailNode = headNode;
+    // this.initialize(headNode);
   }
 
-  initialize=(headNode = null)=>{
-    this.tailNode = headNode;
-    this.prevNode = headNode;
-    this.headNode = headNode;
-  }
+  // initialize(headNode = null) {
+  //   this.headNode = headNode;
+  //   this.tailNode = headNode;
+  // }
 
   addFirstNode(data) {
-    this.tailNode = new Node(data, null);
-    this.prevNode = this.tailNode;
+    this.headNode = new Node(data, null);
+    this.tailNode = this.headNode;
   }
 
   // Add a node to the end of the list
@@ -26,16 +27,12 @@ class LinkedList {
     // If we don't have a tailNode yet, that means the list is empty
     // We can treat this case as a `addFirstNode` method
     if (!this.tailNode) {
-      this.addFirstHead(data);
-    }
-    else {
+      this.addFirstNode(data);
+    } else {
       const node = new Node(data, null);
-
-      // First, point the last node to our new one
-      this.prevNode.next = node;
-
       // Set our new node as the official last node
-      this.prevNode = node;
+      this.tailNode.next = node;
+      this.tailNode = node;
     }
   }
 
@@ -44,11 +41,11 @@ class LinkedList {
   removeNode(index) {
     // Start at the head
     let counter = 0;
-    let currentNode = this.tailNode;
+    let currentNode = this.headNode;
     let prevNode = null;
 
     // Crawl until we hit index
-    while (counter < index) {
+    while (counter < index && currentNode) {
       prevNode = currentNode;
       currentNode = currentNode.next;
       ++counter;
@@ -64,12 +61,12 @@ class LinkedList {
     prevNode.next = nextNode;
   }
 
-  // Return the node at that position, like in an array
+  // Return the node at that position, like in an aNrray
   // It has no error handling
   findNode(index) {
     // Start at the head
     let counter = 0;
-    let currentNode = this.tailNode;
+    let currentNode = this.headNode;
 
     // Crawl until we hit index
     while (counter < index) {
@@ -83,11 +80,16 @@ class LinkedList {
   // Crawls and prints the list
   printList() {
     // Start at the head
-    let currentNode = this.tailNode;
+    let currentNode = this.headNode;
 
-    while (currentNode.next !== null) {
+    while (currentNode) {
       console.log(currentNode.data);
       currentNode = currentNode.next;
     }
   }
 }
+
+const linkedList = new LinkedList();
+linkedList.printList();
+linkedList.addNode(52);
+linkedList.printList();
