@@ -13,15 +13,47 @@ class HashTable {
     return parseInt(word, 36) % this.buckets.length;
   }
 
-  calcBalance() {
+  getCount () {
     let count = 0;
     this.buckets.forEach(linkedlist => {
       count += linkedlist.length ? linkedlist.length : 0;
     });
-    this.balanceCurr = count / this.buckets.length;
+    return count;
   }
 
-  balance() {}
+  calcBalance() {
+    this.balanceCurr = this.getCount()/this.buckets.length;
+  }
+
+  balance(tunerHigh=0, tunerLow=0) {
+
+    const rebalance = ()=>{
+      let newBalance = (this.balanceHigh + this.balanceLow)/2
+
+      let newBuckets = new Array(Math.ceil(this.getCount()/newBalance)).fill(null);
+
+      this.buckets.forEach((linkedList, index))=>{
+        if (linkedList) {
+          for (i=0; i<linkedList.length; i++) {
+            newBuckets.insert
+          }
+        }
+      }
+    }
+
+    if (tunerHigh) {
+      this.balanceHigh = tunerHigh
+    }
+    if (tunerLow) {
+      this.balanceLow = tunerLow
+    }
+    if (this.balanceCurr > this.balanceHigh || this.balanceCurr < this.balanceLow) {
+      rebalance()
+
+    }
+
+    
+  }
 
   updateBucket() {}
 
@@ -29,6 +61,8 @@ class HashTable {
     let index = this.hash(data.word);
     if (!this.buckets[index]) this.buckets[index] = new LinkedList();
     this.buckets[index].addNode(data);
+
+    this.calcBalance()
   }
 
   renderList() {
